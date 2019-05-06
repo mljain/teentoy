@@ -2,7 +2,6 @@ package com.toyshare.repository;
 
 import java.util.Optional;
 
-import com.toyshare.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
