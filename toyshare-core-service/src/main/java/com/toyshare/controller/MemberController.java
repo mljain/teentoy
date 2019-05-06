@@ -36,4 +36,10 @@ public class MemberController {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         return ResponseEntity.ok(memberService.save(member));
     }
+
+    @GetMapping("/id")
+    public ResponseEntity<Member> findById(@RequestParam long memberId) {
+        return ResponseEntity.ok(memberService.findByMemberId(memberId));
+    }
+
 }

@@ -22,6 +22,11 @@ public class MemberService {
         return memberRepository.saveAll(members);
     }
 
+    public Member findByMemberId(long id) {
+        return memberRepository.findByMemberId(new Long(id));
+    }
+
+
     public Member save(Member members) {
         return memberRepository.save(members);
     }
