@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/toy/files")
 public class FileHandlerController {
 
     @Autowired

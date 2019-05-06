@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/todos")
+@RequestMapping("/api/v1/toy/todos")
 @Slf4j
 public class TodoController {
     private final TodoService stockService;
