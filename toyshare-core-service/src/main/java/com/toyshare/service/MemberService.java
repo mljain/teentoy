@@ -30,4 +30,8 @@ public class MemberService {
     public Member save(Member members) {
         return memberRepository.save(members);
     }
+
+    public Member update(Member members) {
+        return memberRepository.save(members);
+    }
 }

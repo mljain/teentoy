@@ -4,6 +4,7 @@ import com.toyshare.entity.Member;
 import com.toyshare.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,11 @@ public class MemberController {
     @GetMapping("/{id}")
     public ResponseEntity<Member> findById(@PathVariable("id") long id) {
         return ResponseEntity.ok(memberService.findByMemberId(id));
+    }
+
+    @PutMapping
+    public ResponseEntity update(@Valid @RequestBody Member member) {
+        return ResponseEntity.ok(memberService.update(member));
     }
 
 }

@@ -1,16 +1,21 @@
 package com.toyshare.entity;
 
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 
-@Data
-public class Member implements Serializable {
+public class Member  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,6 +82,10 @@ public class Member implements Serializable {
 
     @Column(name = "modified_by")
     private String modifiedBy;
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "member", targetEntity = Toy.class, fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Set<Toy> toySet;
 
 
     public Long getMemberId() {
@@ -230,5 +239,56 @@ public class Member implements Serializable {
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
+
+    public Set<Toy> getToySet() {
+        return toySet;
+    }
+
+    public void setToySet(Set<Toy> toySet) {
+        this.toySet = toySet;
+    }
+
+    public static void main(String[] args) {
+        Member m = new Member();
+        m.setPassword("hello");
+        m.setAddressLine1("xyx");
+        m.setAddressLine2("abe");
+        m.setCity("Livermore");
+        m.setCountry("USA");
+        m.setCreatedBy("Soumya Acharya");
+        m.setCreatedDate(new Date());
+        m.setEmail("cse.soumya@gmail.com");
+        m.setFirstName("Soumya");
+        m.setLastName("Acharya");
+        m.setMemberType("USER");
+
+        Set<Toy> toys = new HashSet<>();
+         Toy t1 = new Toy();
+         t1.setCreatedBy("soumya Acharya");
+         t1.setToy_url("www.google.com");
+         t1.setCreatedDate(new Date());
+
+        toys.add(t1);
+
+        Toy t2 = new Toy();
+        t1.setCreatedBy("soumya Acharya");
+        t1.setToy_url("www.google1.com");
+        t1.setCreatedDate(new Date());
+
+        toys.add(t2);
+
+        m.setToySet(toys);
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String jsonString = mapper.writeValueAsString(m);
+            System.out.println(jsonString);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
